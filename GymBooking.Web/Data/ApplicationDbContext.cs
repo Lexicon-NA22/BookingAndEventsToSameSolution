@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using GymBooking.Web.Models.Entities;
 
 namespace GymBooking.Web.Data
 {
@@ -9,5 +10,6 @@ namespace GymBooking.Web.Data
             : base(options)
         {
         }
+        public DbSet<GymClass> GymClass { get; set; }
     }
 }
