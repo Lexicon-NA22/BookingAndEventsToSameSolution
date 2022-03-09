@@ -8,21 +8,29 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GymBooking.Web.Data;
 using GymBooking.Web.Models.Entities;
+using GymBooking.Web.Clients;
 
 namespace GymBooking.Web.Controllers
 {
     public class GymClassesController : Controller
     {
         private readonly ApplicationDbContext db;
+        private readonly BookingClient bookingClient;
+        private HttpClient gymClient;
 
-        public GymClassesController(ApplicationDbContext context)
+        public GymClassesController(ApplicationDbContext context, IHttpClientFactory httpClientFactory, BookingClient bookingClient)
         {
+            var g = httpClientFactory.CreateClient();
+             gymClient = httpClientFactory.CreateClient("GymClient");
+            var gymClient2 = httpClientFactory.CreateClient("GymClient2");
             db = context;
+            this.bookingClient = bookingClient;
         }
 
         // GET: GymClasses
         public async Task<IActionResult> Index()
         {
+            var x = await bookingClient.GetWithStreamsAsync();
             return View(await db.GymClass.ToListAsync());
         }
 
