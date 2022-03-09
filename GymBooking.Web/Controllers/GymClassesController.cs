@@ -15,10 +15,10 @@ namespace GymBooking.Web.Controllers
     public class GymClassesController : Controller
     {
         private readonly ApplicationDbContext db;
-        private readonly BookingClient bookingClient;
+        private readonly IBookingClient bookingClient;
         private HttpClient gymClient;
 
-        public GymClassesController(ApplicationDbContext context, IHttpClientFactory httpClientFactory, BookingClient bookingClient)
+        public GymClassesController(ApplicationDbContext context, IHttpClientFactory httpClientFactory, IBookingClient bookingClient)
         {
             var g = httpClientFactory.CreateClient();
              gymClient = httpClientFactory.CreateClient("GymClient");

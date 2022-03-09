@@ -23,4 +23,8 @@
     <Folder Include="Models\ViewModels\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\EventAPI\Events\Events.Core\Events.Core.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -3,7 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymBooking.Web", "GymBooking.Web\GymBooking.Web.csproj", "{01F2D960-16C5-44DE-AC19-74822CF53597}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GymBooking.Web", "GymBooking.Web\GymBooking.Web.csproj", "{01F2D960-16C5-44DE-AC19-74822CF53597}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Events.API", "..\..\EventAPI\Events\Events.API\Events.API.csproj", "{2738F937-768E-4B76-90BD-F4032F9C0E85}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Events.Core", "..\..\EventAPI\Events\Events.Core\Events.Core.csproj", "{629583D5-CBBB-40E0-ABAD-B619B115D19E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Events.Data", "..\..\EventAPI\Events\Events.Data\Events.Data.csproj", "{798898E1-F1B9-438F-B52E-462AF4A51B69}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +21,18 @@ Global
 		{01F2D960-16C5-44DE-AC19-74822CF53597}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{01F2D960-16C5-44DE-AC19-74822CF53597}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{01F2D960-16C5-44DE-AC19-74822CF53597}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2738F937-768E-4B76-90BD-F4032F9C0E85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2738F937-768E-4B76-90BD-F4032F9C0E85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2738F937-768E-4B76-90BD-F4032F9C0E85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2738F937-768E-4B76-90BD-F4032F9C0E85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{629583D5-CBBB-40E0-ABAD-B619B115D19E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{629583D5-CBBB-40E0-ABAD-B619B115D19E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{629583D5-CBBB-40E0-ABAD-B619B115D19E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{629583D5-CBBB-40E0-ABAD-B619B115D19E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{798898E1-F1B9-438F-B52E-462AF4A51B69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{798898E1-F1B9-438F-B52E-462AF4A51B69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{798898E1-F1B9-438F-B52E-462AF4A51B69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{798898E1-F1B9-438F-B52E-462AF4A51B69}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

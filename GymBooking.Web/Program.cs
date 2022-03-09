@@ -49,7 +49,7 @@ builder.Services.AddHttpClient("GymClient2", client =>
 //    client.BaseAddress = new Uri("https://localhost:5001");
 //});
 
-builder.Services.AddHttpClient<BookingClient>();
+builder.Services.AddHttpClient<IBookingClient, BookingClient>();
 
 var app = builder.Build();
 
