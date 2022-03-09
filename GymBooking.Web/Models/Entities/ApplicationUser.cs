@@ -4,6 +4,6 @@ namespace GymBooking.Web.Models.Entities
 {
     public class ApplicationUser : IdentityUser
     {
-        ICollection<ApplicationUserGymClass> AttendingClasses { get; set; }
+        public ICollection<ApplicationUserGymClass> AttendingClasses { get; set; }
     }
 }
