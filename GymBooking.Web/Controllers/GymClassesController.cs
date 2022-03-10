@@ -113,7 +113,7 @@ namespace GymBooking.Web.Controllers
 
                 if (Request.IsAjax())
                 {
-                    return PartialView("GymClassesPartial", await db.GymClass.ToListAsync());
+                    return PartialView("GymClassPartial", gymClass);
                 }
 
                 return RedirectToAction(nameof(Index));
