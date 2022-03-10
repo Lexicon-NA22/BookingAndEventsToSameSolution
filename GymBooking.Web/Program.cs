@@ -58,13 +58,17 @@ using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     var db = services.GetRequiredService<ApplicationDbContext>();
+    var config = services.GetRequiredService<IConfiguration>();
 
     //db.Database.EnsureDeleted();
     //db.Database.Migrate();
 
+    //dotnet user-secrets set "AdminPW" "Löseord1!"
+    var adminPW = config["AdminPW"];
+
     try
     {
-        
+        SeedData.InitAsync(db, services, adminPW).GetAwaiter().GetResult();
     }
     catch (Exception ex)
     {
