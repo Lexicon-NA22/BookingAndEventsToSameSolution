@@ -9,22 +9,21 @@ using Microsoft.EntityFrameworkCore;
 using GymBooking.Web.Data;
 using GymBooking.Web.Models.Entities;
 using GymBooking.Web.Clients;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GymBooking.Web.Controllers
 {
     public class GymClassesController : Controller
     {
         private readonly ApplicationDbContext db;
-        private readonly IBookingClient bookingClient;
-        private HttpClient gymClient;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public GymClassesController(ApplicationDbContext context, IHttpClientFactory httpClientFactory, IBookingClient bookingClient)
-        {
-            var g = httpClientFactory.CreateClient();
-             gymClient = httpClientFactory.CreateClient("GymClient");
-            var gymClient2 = httpClientFactory.CreateClient("GymClient2");
+        public GymClassesController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        { 
+         
             db = context;
-            this.bookingClient = bookingClient;
+            this.userManager = userManager;
         }
 
         // GET: GymClasses
@@ -32,6 +31,43 @@ namespace GymBooking.Web.Controllers
         {
            // var x = await bookingClient.GetWithStreamsAsync();
             return View(await db.GymClass.ToListAsync());
+        }
+
+
+        [Authorize]
+        public async Task<IActionResult> BookingToggle(int? id)
+        {
+            if (id is null) return BadRequest();
+
+            var userId = userManager.GetUserId(User);
+            //Check for null
+
+            //var currentGymClass = await db.GymClass.Include(g => g.AttendingMembers)
+            //    .FirstOrDefaultAsync(a => a.Id == id);
+
+            //var attending = currentGymClass?.AttendingMembers
+            //                            .FirstOrDefault(a => a.ApplicationUserId == userId);
+
+            var attending = await db.AppUserGymClass.FindAsync(userId, id);
+
+            if(attending == null)
+            {
+                var booking = new ApplicationUserGymClass
+                {
+                    ApplicationUserId = userId,
+                    GymClassId = (int)id
+                };
+
+                db.AppUserGymClass.Add(booking);
+            }
+            else
+            {
+                db.Remove(attending);
+            }
+
+            await db.SaveChangesAsync();
+
+            return RedirectToAction("Index");
         }
 
         // GET: GymClasses/Details/5

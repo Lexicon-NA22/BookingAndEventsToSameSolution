@@ -12,6 +12,7 @@ namespace GymBooking.Web.Data
         {
         }
         public DbSet<GymClass> GymClass { get; set; }
+        public DbSet<ApplicationUserGymClass> AppUserGymClass { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)
