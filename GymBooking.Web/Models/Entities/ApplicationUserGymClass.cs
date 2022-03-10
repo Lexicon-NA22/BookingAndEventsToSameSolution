@@ -1,4 +1,5 @@
 ﻿namespace GymBooking.Web.Models.Entities
+#nullable disable
 {
     public class ApplicationUserGymClass
     {
