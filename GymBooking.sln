@@ -11,6 +11,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Events.Core", "..\..\EventA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Events.Data", "..\..\EventAPI\Events\Events.Data\Events.Data.csproj", "{798898E1-F1B9-438F-B52E-462AF4A51B69}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Events.Tests", "..\..\EventAPI\Events\Events.Tests\Events.Tests.csproj", "{75FF38E4-DF41-4468-B867-8267DE578F75}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymBooking.Tests", "GymBooking.Tests\GymBooking.Tests.csproj", "{BB528968-9D80-48F7-AB12-E6FF59188A51}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{798898E1-F1B9-438F-B52E-462AF4A51B69}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{798898E1-F1B9-438F-B52E-462AF4A51B69}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{798898E1-F1B9-438F-B52E-462AF4A51B69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75FF38E4-DF41-4468-B867-8267DE578F75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75FF38E4-DF41-4468-B867-8267DE578F75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75FF38E4-DF41-4468-B867-8267DE578F75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75FF38E4-DF41-4468-B867-8267DE578F75}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB528968-9D80-48F7-AB12-E6FF59188A51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB528968-9D80-48F7-AB12-E6FF59188A51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB528968-9D80-48F7-AB12-E6FF59188A51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB528968-9D80-48F7-AB12-E6FF59188A51}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
