@@ -45,11 +45,14 @@ namespace GymBooking.Web.Controllers
 
             var userId = userManager.GetUserId(User);
 
-            var model = mapper.ProjectTo<GymClassesViewModel>
-                (db.GymClass.Include(g => g.AttendingMembers), new {id= userId});
+            //var model = mapper.ProjectTo<GymClassesViewModel>
+            //    (db.GymClass.Include(g => g.AttendingMembers), new {id= userId}); 
+            
 
-            var m = db.GymClass.Include(g => g.AttendingMembers).ProjectTo<GymClassesViewModel>(mapper.ConfigurationProvider, new { id = userId });
+            //var m = db.GymClass.Include(g => g.AttendingMembers).ProjectTo<GymClassesViewModel>(mapper.ConfigurationProvider, new { id = userId });
 
+            var model2 = mapper.Map<IEnumerable<GymClassesViewModel>>
+                (db.GymClass.Include(g => g.AttendingMembers).ToList());
 
             return View();
         }
