@@ -30,7 +30,6 @@ namespace GymBooking.Web.Controllers
         // GET: GymClasses
         public async Task<IActionResult> Index()
         {
-           // var x = await bookingClient.GetWithStreamsAsync();
             return View(await db.GymClass.ToListAsync());
         }
 

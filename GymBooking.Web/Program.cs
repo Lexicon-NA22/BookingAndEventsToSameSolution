@@ -66,7 +66,7 @@ using (var scope = app.Services.CreateScope())
     //db.Database.EnsureDeleted();
     //db.Database.Migrate();
 
-    //dotnet user-secrets set "AdminPW" "Löseord1!"
+    //dotnet user-secrets set "AdminPW" "Lï¿½seord1!"
     var adminPW = config["AdminPW"];
 
     try
