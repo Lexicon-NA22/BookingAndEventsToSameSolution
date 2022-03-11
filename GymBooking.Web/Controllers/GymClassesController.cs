@@ -34,27 +34,19 @@ namespace GymBooking.Web.Controllers
 
         // GET: GymClasses
         [AllowAnonymous]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(IndexViewModel viewModel)
         {
+           
             if (!User.Identity.IsAuthenticated)
-            {
-                var data = await db.GymClass.ToListAsync();
-                var mapped = mapper.Map<IEnumerable<GymClassesViewModel>>(data);
-                return View(mapped);
-            }
+                return View(mapper.Map<IEnumerable<IndexViewModel>>(await db.GymClass.ToListAsync()));
 
-            var userId = userManager.GetUserId(User);
+            var gymClasses = viewModel.ShowHistory ?   await db.GymClass.Include(g => g.AttendingMembers)
+                                                                  .IgnoreQueryFilters()
+                                                                  .Where(g => g.StartDate < DateTime.Now)
+                                                                  .ToListAsync() :
+                                                       await db.GymClass.Include(g => g.AttendingMembers).ToListAsync();
 
-            //var model = mapper.ProjectTo<GymClassesViewModel>
-            //    (db.GymClass.Include(g => g.AttendingMembers), new {id= userId}); 
-            
-
-            //var m = db.GymClass.Include(g => g.AttendingMembers).ProjectTo<GymClassesViewModel>(mapper.ConfigurationProvider, new { id = userId });
-
-            var model2 = mapper.Map<IEnumerable<GymClassesViewModel>>
-                (db.GymClass.Include(g => g.AttendingMembers).ToList());
-
-            return View(model2);
+            return View(mapper.Map<IndexViewModel>(gymClasses));
         }
 
         public async Task<IActionResult> BookingToggle(int? id)

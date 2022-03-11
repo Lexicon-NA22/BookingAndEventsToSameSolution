@@ -1,4 +1,5 @@
 ﻿namespace GymBooking.Web.Models.ViewModels
+#nullable disable
 {
     public class GymClassesViewModel
     {

@@ -47,3 +47,7 @@ function success(response) {
     fixvalidation();
 }
 
+$('#checkbox').click(function () {
+    $('#checkform').submit();
+})
+
