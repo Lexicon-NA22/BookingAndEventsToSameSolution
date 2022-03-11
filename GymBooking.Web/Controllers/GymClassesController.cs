@@ -38,7 +38,7 @@ namespace GymBooking.Web.Controllers
         {
            
             if (!User.Identity.IsAuthenticated)
-                return View(mapper.Map<IEnumerable<IndexViewModel>>(await db.GymClass.ToListAsync()));
+                return View(mapper.Map<IndexViewModel>(await db.GymClass.ToListAsync()));
 
             var gymClasses = viewModel.ShowHistory ?   await db.GymClass.Include(g => g.AttendingMembers)
                                                                   .IgnoreQueryFilters()
