@@ -1,5 +1,6 @@
 using GymBooking.Web.Clients;
 using GymBooking.Web.Data;
+using GymBooking.Web.Data.AutoMapper;
 using GymBooking.Web.Models.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -50,6 +51,8 @@ builder.Services.AddHttpClient("GymClient2", client =>
 //});
 
 builder.Services.AddHttpClient<IBookingClient, BookingClient>();
+
+builder.Services.AddAutoMapper(typeof(GymClassProfile));
 
 var app = builder.Build();
 
