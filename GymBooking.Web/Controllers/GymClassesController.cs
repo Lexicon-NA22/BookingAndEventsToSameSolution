@@ -54,7 +54,7 @@ namespace GymBooking.Web.Controllers
             var model2 = mapper.Map<IEnumerable<GymClassesViewModel>>
                 (db.GymClass.Include(g => g.AttendingMembers).ToList());
 
-            return View();
+            return View(model2);
         }
 
         public async Task<IActionResult> BookingToggle(int? id)

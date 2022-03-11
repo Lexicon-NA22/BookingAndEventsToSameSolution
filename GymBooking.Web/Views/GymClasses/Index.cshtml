@@ -1,4 +1,4 @@
-﻿@model IEnumerable<GymBooking.Web.Models.Entities.GymClass>
+﻿@model IEnumerable<GymClassesViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -26,7 +26,6 @@
             <th>@Html.DisplayNameFor(model => model.Name)</th>
             <th>@Html.DisplayNameFor(model => model.StartDate)</th>
             <th>@Html.DisplayNameFor(model => model.Duration)
-            </th><th>@Html.DisplayNameFor(model => model.Description)</th>
             <th></th>
         </tr>
     </thead>
