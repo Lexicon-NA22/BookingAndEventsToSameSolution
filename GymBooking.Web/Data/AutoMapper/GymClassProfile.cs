@@ -8,7 +8,14 @@ namespace GymBooking.Web.Data.AutoMapper
     {
         public GymClassProfile()
         {
-            CreateMap<GymClass, GymClassesViewModel>();
+            //CreateMap<GymClass, GymClassesViewModel>();
+
+            string id = null;
+            CreateMap<GymClass, GymClassesViewModel>()
+                    .ForMember(dest => dest.Attending,
+                    from => from.MapFrom(g => g.AttendingMembers.Any(a => a.ApplicationUserId == id)));
+            
+            
         }
     }
 }

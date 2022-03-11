@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Authorization;
 using GymBooking.Web.Extensions;
 using AutoMapper;
 using GymBooking.Web.Models.ViewModels;
+using AutoMapper.QueryableExtensions;
 
 namespace GymBooking.Web.Controllers
 {
@@ -39,8 +40,16 @@ namespace GymBooking.Web.Controllers
             {
                 var data = await db.GymClass.ToListAsync();
                 var mapped = mapper.Map<IEnumerable<GymClassesViewModel>>(data);
-                 return View(mapped);
+                return View(mapped);
             }
+
+            var userId = userManager.GetUserId(User);
+
+            var model = mapper.ProjectTo<GymClassesViewModel>
+                (db.GymClass.Include(g => g.AttendingMembers), new {id= userId});
+
+            var m = db.GymClass.Include(g => g.AttendingMembers).ProjectTo<GymClassesViewModel>(mapper.ConfigurationProvider, new { id = userId });
+
 
             return View();
         }
