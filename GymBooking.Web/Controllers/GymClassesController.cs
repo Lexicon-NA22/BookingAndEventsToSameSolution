@@ -12,6 +12,8 @@ using GymBooking.Web.Clients;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 using GymBooking.Web.Extensions;
+using AutoMapper;
+using GymBooking.Web.Models.ViewModels;
 
 namespace GymBooking.Web.Controllers
 {
@@ -19,22 +21,30 @@ namespace GymBooking.Web.Controllers
     {
         private readonly ApplicationDbContext db;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly IMapper mapper;
 
-        public GymClassesController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        public GymClassesController(ApplicationDbContext context, UserManager<ApplicationUser> userManager, IMapper mapper)
         { 
          
             db = context;
             this.userManager = userManager;
+            this.mapper = mapper;
         }
 
         // GET: GymClasses
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
-            return View(await db.GymClass.ToListAsync());
+            if (!User.Identity.IsAuthenticated)
+            {
+                var data = await db.GymClass.ToListAsync();
+                var mapped = mapper.Map<IEnumerable<GymClassesViewModel>>(data);
+                 return View(mapped);
+            }
+
+            return View();
         }
 
-
-        [Authorize]
         public async Task<IActionResult> BookingToggle(int? id)
         {
             if (id is null) return BadRequest();

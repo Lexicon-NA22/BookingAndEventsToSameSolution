@@ -2,7 +2,9 @@ using GymBooking.Web.Clients;
 using GymBooking.Web.Data;
 using GymBooking.Web.Data.AutoMapper;
 using GymBooking.Web.Models.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using System.Net.Http.Headers;
 
@@ -27,7 +29,15 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews(opt =>
+{
+    var policy = new AuthorizationPolicyBuilder()
+                        .RequireAuthenticatedUser()
+                        .RequireRole("Member")
+                        .Build();
+
+    opt.Filters.Add(new AuthorizeFilter(policy));
+});
 
 //1
 builder.Services.AddHttpClient();
