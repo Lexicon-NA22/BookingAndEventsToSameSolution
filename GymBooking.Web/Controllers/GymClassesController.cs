@@ -96,6 +96,11 @@ namespace GymBooking.Web.Controllers
                 return PartialView("CreatePartial");
             }
             return View();
+        } 
+        
+        public IActionResult CreateFetch()
+        {
+                return PartialView("CreatePartial");
         }
 
         // POST: GymClasses/Create

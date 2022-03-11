@@ -5,6 +5,19 @@
 
 
 const target = document.querySelector('#createajax');
+document.querySelector('#fetch').addEventListener('click', getcreateform);
+
+function getcreateform() {
+    fetch('https://localhost:7097/gymclasses/createfetch', {
+        method: 'GET'
+    })
+        .then(res => res.text())
+        .then(data => {
+            target.innerHTML = data;
+            fixvalidation();
+        })
+        .catch(err => failcreate(err));
+}
 
 function removeform() {
     target.innerHTML = '';
@@ -33,3 +46,4 @@ function success(response) {
     target.innerHTML = response;
     fixvalidation();
 }
+
