@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace GymBooking.Tests.SetUp
 {
+    [TestClass]
     public class GlobalSetUp
     {
         [AssemblyInitialize]

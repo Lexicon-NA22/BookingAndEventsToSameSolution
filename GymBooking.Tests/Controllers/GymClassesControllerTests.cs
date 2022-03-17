@@ -1,12 +1,18 @@
 using AutoMapper;
+using GymBooking.Tests.Helpers;
+using GymBooking.Web.Controllers;
 using GymBooking.Web.Data;
 using GymBooking.Web.Data.AutoMapper;
 using GymBooking.Web.Models.Entities;
+using GymBooking.Web.Models.ViewModels;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace GymBooking.Tests.Controllers
@@ -17,6 +23,8 @@ namespace GymBooking.Tests.Controllers
     {
         private static Mapper mapper;
         private static ApplicationDbContext context;
+        private Mock<UserManager<ApplicationUser>> mockUserManager;
+        private GymClassesController controller;
 
         public TestContext TestContext { get; set; }
 
@@ -63,6 +71,19 @@ namespace GymBooking.Tests.Controllers
         public void TestSetUp()
         {
             TestContext.WriteLine($"TestInit starts");
+
+            var mockUserStore = new Mock<IUserStore<ApplicationUser>>();
+            mockUserManager = new Mock<UserManager<ApplicationUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
+
+            controller = new GymClassesController(context, mockUserManager.Object, mapper);
+
+            //För att mocka Delete/Create/Update
+            //var ls = new List<ApplicationUser>();
+            //mockUserManager.Object.UserValidators.Add(new UserValidator<ApplicationUser>());
+            //mockUserManager.Object.PasswordValidators.Add(new PasswordValidator<ApplicationUser>());
+            //mockUserManager.Setup(x => x.DeleteAsync(It.IsAny<ApplicationUser>())).ReturnsAsync(IdentityResult.Success);
+            //mockUserManager.Setup(x => x.CreateAsync(It.IsAny<ApplicationUser>(), It.IsAny<string>())).ReturnsAsync(IdentityResult.Success).Callback<ApplicationUser, string>((a,p) => ls.Add(a));
+            //mockUserManager.Setup(x => x.UpdateAsync(It.IsAny<ApplicationUser>())).ReturnsAsync(IdentityResult.Success);
         }
 
         [TestMethod]
@@ -70,7 +91,16 @@ namespace GymBooking.Tests.Controllers
         {
             TestContext.WriteLine($"{TestContext.TestName} starts");
 
+            controller.SetUserIsAutenticated(false);
+            var result = (ViewResult)(await controller.Index(new IndexViewModel { ShowHistory = false }));
 
+            Assert.IsInstanceOfType(result.Model, typeof(IndexViewModel));
+
+        }
+
+        [TestMethod]
+        public async Task Index_AuthorizedWithNullParameter_ShouldNotReturnHistory()
+        {
 
         }
 
