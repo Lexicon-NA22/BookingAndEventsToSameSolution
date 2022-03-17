@@ -99,10 +99,69 @@ namespace GymBooking.Tests.Controllers
         }
 
         [TestMethod]
-        public async Task Index_AuthorizedWithNullParameter_ShouldNotReturnHistory()
+        public async Task Index_Authorized_ShouldNotReturnHistory()
         {
+            TestContext.WriteLine($"{TestContext.TestName} starts");
 
+            controller.SetUserIsAutenticated(true);
+            var result = (ViewResult)(await controller.Index(new IndexViewModel { ShowHistory = false }));
+
+            var history = ((IndexViewModel)result.Model).GymClasses.Where(g => g.StartDate < DateTime.Now).Count();
+
+
+            Assert.IsInstanceOfType(result.Model, typeof(IndexViewModel));
+            Assert.AreEqual(0, history);
+
+            //CollectionAssert
+            //StringAssert
         }
+
+        [TestMethod]
+        public void Create_ReturnsDefaultView_ShouldReturnNull()
+        {
+            controller.SetAjaxRequest(false);
+
+            var actual = controller.Create() as ViewResult;
+
+            Assert.IsNull(actual.ViewName);
+        } 
+        
+        [TestMethod]
+        public void Create_WithAjaxReturnsPartialView_ShouldNotReturnNull()
+        {
+            controller.SetAjaxRequest(true);
+            const string correctPartialViewName = "CreatePartial";
+
+            var actual = controller.Create() as PartialViewResult;
+
+
+            Assert.IsNotNull(actual.ViewName);
+            Assert.AreEqual(correctPartialViewName, actual.ViewName);
+        }
+
+        [TestMethod]
+        public async Task Create_WithCorrectModel_ShouldSaveNewGymClass()
+        {
+            const string name = "TestGym";
+            controller.SetAjaxRequest(true);
+
+            var actual = await controller.Create(new GymClass
+            {
+                StartDate = DateTime.Now.AddDays(1),
+                Duration = new TimeSpan(0, 55, 0),
+                Name = name
+            }) as ViewResult;
+
+            context.ChangeTracker.Clear();
+            var saved = context.GymClass.Single(g => g.Name == name);
+
+            context.GymClass.Remove(saved);
+            await context.SaveChangesAsync();
+
+            Assert.AreEqual(name, saved.Name);
+        }
+
+
 
         private static ApplicationDbContext CreateContext()
         {
