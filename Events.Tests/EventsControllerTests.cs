@@ -69,6 +69,8 @@ namespace Events.Tests
 
             var responseHeaders = controller.Response.Headers["X-Pagination"];
 
+            mockEventRepo.Verify(e => e.GetAsync(It.IsAny<bool>(), It.IsAny<PagingParams>()), Times.Once());
+
             Assert.IsInstanceOfType(actual.Result, typeof(OkObjectResult));
           
             
